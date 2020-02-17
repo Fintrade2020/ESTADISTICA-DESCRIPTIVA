@@ -1,6 +1,6 @@
 ---
 title: "MEDIDAS DE LOCALIZACION"
-author: "Laura Rodriguez & Valeria Soto"
+author: "Lab Fintrade"
 date: "6/2/2020"
 output: html_document
 ---
