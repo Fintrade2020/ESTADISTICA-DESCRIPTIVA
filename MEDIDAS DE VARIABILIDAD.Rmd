@@ -1,6 +1,6 @@
 ---
 title: "MEDIDAS DE VARIABILIDAD"
-author: "Laura Rodriguez & Valeria Soto"
+author: "Lab Fintrade"
 date: "10/2/2020"
 output: html_document
 ---
