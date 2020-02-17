@@ -1,0 +1,130 @@
+---
+title: "MEDIDAS DE TENDENCIA CENTRAL "
+author: "Fintrade"
+date: "5/2/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+## MEDIDAS DE TENDENCIA CENTRAL
+
+# Media aritmetica: 
+
+Es el valor caracteristico de una serie de datos cuantitativos, parte del principio del valor esperado.  
+
+Limitacion: cuando el conjunto de datos presenta sesgo en su comportamiento o existen datos atipicos, el valor de la media se ve afectado y no es confiable como valor caracteristico.
+
+
+# Mediana
+
+La mediana de un conjunto de datos es la medida de tendencia central que implica el valor intermedio, cuando los datos originales se presentan en orden de magnitud creciente o decreciente.
+
+# Distribucion grafica del conjunto de datos 
+
+Una distribucion de datos esta sesgada si no es simetrica y se extiende mas hacia un lado que hacia el otro. (Una distribucion de datos es simetrica si la mitad izquierda de su histograma es aproximadamente una imagen especular de su mitad derecha).
+
+IMPORTANTE:
+* Una curva de sesgo negativo tiene la cola izquierda mas larga que la derecha, en este caso el valor de la media es menor al valor de la mediana.
+* Una curva de sesgo positivo tiene la cola derecha mas larga que la izquierda, en este caso el valor de la media es mayor al valor de la mediana. 
+
+
+
+#Ejercicio
+
+1. Para el siguiente conjunto de datos de la balanza comercial de Colombia, calcular media y mediana
+2. Determinar el tipo de distribución gráfica que tienen los conjuntos
+
+PARA REALIZAR EL EJERCICIO, PRIMERO SE VAN A IMPORTAR LA BASE DE DATOS, QUE EN ESTE CASO ES PROVENIENTE DE LA BASE DE DATOS EXCEL.
+
+```{r importar datos}
+library(readxl)
+exportacionescol = read_excel("F:/ECONOMETRIA FINANCIERA/balanza.xlsx")
+```
+
+### Incorporacion variables
+
+Para incorporar las variables se definen las variables de acuerdo cómo se encuentren planteadas en la base de datos.
+
+```{r def_var}
+EX = exportacionescol$expocol
+Fecha = as.Date(exportacionescol$fecha,format = "%Y-%m-%d")
+
+```
+
+### Media y mediana
+
+En este caso se quiere hallar la media y la mediana de las exportaciones de Colombia.
+
+```{r media}
+mean(EX)
+
+median(EX)
+```
+
+
+### Tipo de distribucion grafica 
+
+
+```{r histograma}
+
+hist(EX)
+```
+
+En este caso, se supone que la curva de comportamiento de los datos es asimétrica. En principio, el valor de la media y la mediana son diferentes, y de acuerdo al gráfico presenta un sesgo positivo.
+
+
+
+
+
+
+
+# Media ponderada
+
+Es una medida de tendencia central que se utiliza cuando en un conjunto de datos, cada uno de ellos tiene una importancia relativa respecto de los demas datos.
+
+Ejercicio:
+Con la base de datos de las exportaciones de Colombia, se agrega la colimna de la balanza comercial. Por lo tanto, halle la media ponderada de las exportaciones y la balanza comercial de Colombia.
+
+
+
+```{r def_var2}
+EX = exportacionescol$expocol
+BC = exportacionescol$balanza
+```
+
+```{r mediapond}
+MEDIA_PONDERADA<-sum(BC*EX)/sum(EX)
+MEDIA_PONDERADA
+```
+
+
+En este caso las exportaciones representan una importancia de 76.1662 millones de dolares FOB sobre la balanza comercial de Colombia 
+
+
+# Rango medio 
+
+Es el promedio entre el minimo y maximo valor del conjunto de datos.
+
+Ejercicio
+Calcule el rango medio de las exportaciones colombiana desde el 1980 hasta 2018
+
+```{r rangomedio}
+
+MAXIMO_EXPORTACIONES<-max(EX)
+MINIMO_EXPORTACIONES<-min(EX)
+RANGO_MEDIO<-(MAXIMO_EXPORTACIONES+MINIMO_EXPORTACIONES)/2
+RANGO_MEDIO
+
+cbind(MINIMO_EXPORTACIONES,MAXIMO_EXPORTACIONES)
+
+```
+
+
+
+
+
+
