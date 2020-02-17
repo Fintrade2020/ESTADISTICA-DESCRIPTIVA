@@ -1,0 +1,115 @@
+---
+title: "MEDIDAS DE LOCALIZACION"
+author: "Laura Rodriguez & Valeria Soto"
+date: "6/2/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+```{r cars}
+summary(cars)
+```
+
+
+
+```{r importar datos}
+library(readxl)
+exportacionescol = read_excel("F:/ECONOMETRIA FINANCIERA/balanza.xlsx")
+```
+
+```{r def_var}
+EX = exportacionescol$expocol
+Fecha = as.Date(exportacionescol$fecha,format = "%Y-%m-%d")
+BC = exportacionescol$balanza
+```
+
+
+## MEDIDAS DE LOCALIZACION
+
+# Percentiles
+
+Los percentiles son aquellos valores de la variable que dividen la distribucion en 100 partes iguales. Cada percentil acumula un 1% de la frecuencia relativa acumulada.
+
+Ejercicio
+Hallar los percentiles de las exportaciones de Colombia
+
+```{r percentiles}
+PERCENTIL_20<-quantile(EX, probs = 0.20)
+PERCENTIL_20
+```
+
+```{r percentiles2}
+EXTREMOSAL_5<-quantile(EX, probs = c(0.05,0.95))
+EXTREMOSAL_5
+```
+
+# Deciles
+
+Los percentiles son aquellos valores de la variable que dividen la distribucion en 10 partes iguales. Cada percentil acumula un 10% de la frecuencia relativa acumulada.
+
+
+```{r deciles}
+DECILES<-quantile(EX, probs = c(0.10,0.20,0.30,0.40,0.50,0.60,0.70,0.80,0.90))
+DECILES
+```
+
+# Cuartiles
+
+Son medidas de ubicacion que se denotan por Q1, Q2 y Q3, y dividen un conjunto de datos ordenado en cuatro partes iguales, con aproximadamente el 25% de los valores en cada grupo.
+
+Con el ejercicio de las exportaciones de Colombia:
+
+```{r cuartiles}
+CUARTILES<-quantile(EX,probs = c(0.25,0.75))
+CUARTILES
+```
+En este ejemplo se calcularon el primer y el tercer cuartil.
+
+
+
+
+# Diagrama de caja 
+
+Es una grafica que se utiliza para mostrar datos atipícos en el conjuntos de datos:
+* Maximo {Minimo, LI}
+* Q1
+* Mediana
+* Q3
+* Minimo {Maximo, LS}
+Donde:
+- LI: Q1-1.5(Q3-Q1)
+- LS: Q3+1.5(Q3-Q1)
+
+Este se utiliza para mostrar la tendencia y la dispersion de los datos.
+
+Con el ejemplo de las exportaciones de Colombia, se procede a construir el diagrama de caja y bigotes:
+
+```{r caja}
+boxplot(EX, main="Exportaciones de Colombia 1980-2018")
+```
+
+
+
+# Boxplot comparativo 
+
+```{r compare}
+
+# Simulamos dos variables.
+
+comparacion<-cbind(EX,BC) # Unimos las dos variables en una sola matriz. 
+boxplot(comparacion,cex.axis=1,col = c("red","green"),
+cex.lab=1.5, ylab="millones de dolares FOB ",xlab="EXPORTACIONES VS BALANZA COMERCIAL", names=c("exportaciones","balanza comercial")) # Obtenemos el diagrama en colores
+
+legend("topright", inset=.02,title="Variables",legend = c("exportaciones","balanza comercial"),
+fill=c("red","green"),cex=1.2,bty = "n")  # Ponemos la leyenda.
+
+```
+
+
+
+
