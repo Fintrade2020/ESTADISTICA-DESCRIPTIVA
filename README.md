@@ -1,7 +1,3 @@
-# Monitorías
+ESTADISTICA DESCRIPTIVA
+En este espacio encontrará ejemplos relacionados con estadística, como es: medidas de localización, medidas de variabilidad, medidas de tendencia central.
 
-
-
-
-Este es un espacio que brinda a los estudiantes una guia para el manejo de los comandos de Rstudio, aquí encontrará 
-códigos relacionados con estadística descriptiva, econometría l y econometría financiera.
