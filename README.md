@@ -1,3 +1,3 @@
-ESTADISTICA DESCRIPTIVA
-En este espacio encontrará ejemplos relacionados con estadística, como es: medidas de localización, medidas de variabilidad, medidas de tendencia central.
+#ESTADISTICA DESCRIPTIVA
+En este espacio encontrará temas enfocados con la estadística descriptiva, en la carpeta de medidas encontrará ejemplos relacionados con medidas de localización, medidas de variabilidad, medidas de tendencia central.
 
