@@ -1,0 +1,179 @@
+---
+title: "Tutoria en R"
+author: "Jenny Carolina Llanos M 63162007"
+date: "29 de agosto de 2020"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Se omite las tildes para evitar los caracteres de edicion.
+
+###MATEMATICAS BASICAS 
+##Operaciones Basicas 
+R realiza operaciones matematicas y logicas avanzadas. 
+
+1. Pincipales operaciones artimeticos 
+* Adicion (+)
+```{r, adicion}
+15987256+658232
+```
+Sustracción (-)
+```{r, sustraccion}
+15878-98
+```
+Producto(*)
+```{r, producto}
+62.3*8
+```
+Division(/)
+```{r, division}
+58/7
+```
+Divion para calcular el cociente (%/%)
+```{r, cociente}
+18%/%7
+#division para encontrar un cociente
+```
+Division para calcular el residuo (%%)
+```{r, residuo}
+18%%7
+```
+Potencia (^)(**)
+```{r, potencia}
+59^5
+59**5
+```
+
+```{r, gen}
+3+5
+3*5
+3/5
+4^2
+```
+
+##Operaciones adicionales 
+
+Factorial -> factorial()
+```{r, factorial}
+factorial(85)
+```
+Combinatorio -> choose()
+```{r, combi}
+choose(54,31)
+```
+Raiz cuadrada -> sqrt()
+```{r, raiz}
+sqrt(545)
+```
+Numero de Euler-Exponente -> exp()
+```{r, euler}
+exp(236)
+```
+Logaritmo natural -> log()
+```{r, log}
+log(22)
+```
+Valor Absoluto -> abs()
+```{r, absoluto}
+abs(-58)
+```
+
+##ESTADISTICA BASICA 
+
+Se crea un vector el primer vector de tres elementos que se denomina _vector1_ y otro segundo venctor de seis elementos que se denomida _vector2_
+
+```{r, vector1}
+vector1 <- c(0.5, 5.6, 8.6) #primer vector
+vector2 = c(2, 8, 16, 20, 26, 34) #segundo vector 
+
+sum(vector2) #suma de datos vector2
+```
+
+* Funcion listar ->ls()
+Esta funcion ls() permite revisar cuantos objetos se ha creado en R. 
+```{r, ls}
+ls()
+```
+
+Media -> mean()
+```{r, mean()}
+mean(vector2)
+mean(vector1)
+```
+Mediana -> median()
+```{r, median}
+median(vector1)
+median(vector2)
+```
+Valor maximo -> max()
+```{r, max}
+max(vector1)
+max(vector2)
+```
+Valor minimo -> min()
+```{r, min}
+min(vector1)
+min(vector2)
+```
+1. Desviacion estandar -> sd()
+```{r, sd}
+sd(vector1)
+sd(vector2)
+```
+2. Varianza 
+```{r, variance}
+variance <- function (x)   sum((x-mean(x))^2)/(length(x)-1) #escrita como una funcion
+variance(vector1)
+variance(vector2)
+```
+
+3. Longitud de la variable -> length()
+```{r, length}
+num <- c(5,8,55,26,48,75,58, 98, 57, 26)  
+length(num)
+length(vector1)
+length(vector2)
+```
+4. Rango -> range()
+* Esta funcion evidencia el rango, valor (min) y valor(max) de variable.
+```{r, rango}
+range(num)
+range(vector1)
+range(vector2)
+```
+5. Quantiles -> quantile()
+* Muestra los cuartiles de la variable
+```{r, quantile}
+quantile(num)
+quantile(vector1)
+quantile(vector2)
+```
+Para evidenciar los percentiles del 40%, 67% y 80% de las variables 
+```{r, per}
+quantile(num, c(.40, .67, .80))
+quantile(vector1, c(.40, .67, .80))
+quantile(vector2, c(.40, .67, .80))
+```
+6. Asimetria y curtosis 
+* Son aquellas que representan la asimetria de la distrucion y el achatamiento, para obtener estas medidas se utiliza el paquete {moments}
+```{r, estad}
+library("moments")
+```
+Se usa el codigo skewness(), que indica el valor de la asimetria de los datos de la variable a observar. 
+```{r, skewness}
+skewness(num)
+skewness(vector1)
+skewness(vector2)
+```
+Se usa el codigo kurtosis(), que indica el achatamiento de la distribucion de los datos de las variables a observar. 
+```{r, kurtosis}
+kurtosis(num)
+kurtosis(vector1)
+kurtosis(vector2)
+```
+Si este coeficiente es nulo, la distribucion se dice normal (similar a la distribucion normal de Gauss) y recibe el nombre de mesocurtica. Si el coeficiente es positivo, la distribucion se llama leptocurtica, hay una mayor concentracion de los datos en torno a la media. Si el coeficiente es negativo, la distribucion se llama platicurtica y hay una menor concentracion de datos en torno a la media (Alan Ramirez,2015)
