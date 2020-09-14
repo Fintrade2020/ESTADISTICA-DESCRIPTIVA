@@ -1,6 +1,6 @@
 ---
 title: "Tutoria en R"
-author: "Jenny Carolina Llanos M 63162007"
+author: "Jenny Carolina Llanos M"
 date: "29 de agosto de 2020"
 output:
   html_document: default
@@ -176,4 +176,3 @@ kurtosis(num)
 kurtosis(vector1)
 kurtosis(vector2)
 ```
-Si este coeficiente es nulo, la distribucion se dice normal (similar a la distribucion normal de Gauss) y recibe el nombre de mesocurtica. Si el coeficiente es positivo, la distribucion se llama leptocurtica, hay una mayor concentracion de los datos en torno a la media. Si el coeficiente es negativo, la distribucion se llama platicurtica y hay una menor concentracion de datos en torno a la media (Alan Ramirez,2015)
