@@ -13,7 +13,8 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Se omite las tildes para evitar los caracteres de edicion.
 
-La base de datos que se va a trabajar estan en las paginas siguientes https://covid.ourworldindata.org/data/ecdc/full_data.csv 
+La base de datos que se va a trabajar estan en las paginas siguientes 
+https://covid.ourworldindata.org/data/ecdc/full_data.csv 
 y 
 https://covid.ourworldindata.org/data/ecdc/locations.csv
 
@@ -58,7 +59,7 @@ plot(Chile$total_deaths, type="l", col = "darkseagreen1")
 par(new=T)
 plot(Peru$total_deaths,type ="l", col="firebrick4")
 
-#ó
+#Ã³
 
 #plot(Chile$date,Chile$total_deaths, type="o", col = "darkseagreen1")
 #par(new=T)
@@ -72,7 +73,7 @@ A continuacion se halla la media y la desviacion estandar de la variable *new_ca
 #media
 mean(na.omit(Chile$new_cases))
 mean(na.omit(Peru$new_cases))
-#desviación estandar
+#desviaciÃ³n estandar
 sd(na.omit(Chile$new_cases))
 sd(na.omit(Peru$new_cases))
 
