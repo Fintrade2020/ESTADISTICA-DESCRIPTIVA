@@ -1,0 +1,118 @@
+---
+title: "Analisis en R COVID-19"
+date: "4 de septiembre de 2020"
+output:
+  pdf_document: default
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Se omite las tildes para evitar los caracteres de edicion.
+
+La base de datos que se va a trabajar estan en las paginas siguientes https://covid.ourworldindata.org/data/ecdc/full_data.csv 
+y 
+https://covid.ourworldindata.org/data/ecdc/locations.csv
+
+#ANALISIS EN R COVID-19
+
+Se carga la basa de datos COVID.csv y se convierte la variable _date_ en tipo _Date_,se observa las primeras tres observaciones. 
+
+
+```{r, datosCOVID}
+setwd("D:/Analisis en R y Python")
+library(readr)
+COVID <- read_csv("COVID.csv", col_types = cols(date = col_character()))
+
+
+fecha = as.Date(COVID$date, format = "%Y-%m-%d")
+head(COVID,3)
+```
+
+Se construye y se guarda en un Global Environment una base que contega solo la informacion de Chile y Peru y se observa las tres primeras observaciones 
+A partir de las bases de Chile y Peru, se construye dos subbases con la informacion de cada pais por separado 
+
+```{r, COLbra}
+
+chi_peru = COVID[COVID$location== "Chile" |COVID$location == "Peru", ]
+
+head(chi_peru,3)
+
+Chile = chi_peru[chi_peru$location=="Chile",]
+Peru = chi_peru[chi_peru$location=="Peru",]
+
+#Se ordenala base para la fecha
+
+Chile = Chile[order(Chile$date),] 
+Peru = Peru[order(Peru$date),]
+
+```
+
+Se construye una grafica con _plot_ de la variable *total_deaths* de la base de Chile y Peru 
+
+```{r, grafica}
+plot(Chile$total_deaths, type="l", col = "darkseagreen1")
+par(new=T)
+plot(Peru$total_deaths,type ="l", col="firebrick4")
+
+#ó
+
+#plot(Chile$date,Chile$total_deaths, type="o", col = "darkseagreen1")
+#par(new=T)
+#plot(Peru$date,Peru$total_deaths,type ="o", col="firebrick4")
+```
+
+A continuacion se halla la media y la desviacion estandar de la variable *new_cases* de Peru y Chile, omitiendo los NA
+
+
+```{r, mediam,sd}
+#media
+mean(na.omit(Chile$new_cases))
+mean(na.omit(Peru$new_cases))
+#desviación estandar
+sd(na.omit(Chile$new_cases))
+sd(na.omit(Peru$new_cases))
+
+print("El pais con mayor media en la variable new_cases es Peru ya que tiene 2709.838 ")
+```
+
+Se construye una grafica con _plot_ de la variable *total_cases* para cada pais
+
+```{r, ejes}
+par(mfrow=c(1,2))
+plot(Chile$total_cases,type="l")
+
+plot(Peru$total_cases,type="l", col = "goldenrod")
+```
+
+Se construye un histograma de frecuencias relativas para la variable *new_cases* para cada pais. 
+
+```{r, histoabsoluta}
+hist(Chile$new_cases,freq = F)
+hist(Peru$new_cases, freq = F)
+```
+
+Se contruye un diagrama de cajas de la base principal COVID de la variable *new_cases* para cada uno de los paises de South America
+
+```{r, cajas}
+Sur_America = COVID[COVID$continent == "South America",]
+Sur_America$location = as.factor(Sur_America$location)
+
+plot(Sur_America$location, Sur_America$new_deaths)
+```
+
+Se halla el porcentaje del total de muertes por dia en relacion de la poblacion en Chile y Peru
+
+```{r, porcentaje}
+x_chi = Chile$total_deaths/Chile$population
+x_peru = Peru$total_deaths/Peru$population
+max(na.omit(x_peru))*100
+max(na.omit(x_chi))*100
+
+```
+
+Se evidencia que Peru tiene un porcentaje mayor con 0.05%
+
