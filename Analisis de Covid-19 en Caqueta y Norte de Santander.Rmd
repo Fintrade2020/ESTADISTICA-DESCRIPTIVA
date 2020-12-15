@@ -1,0 +1,268 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## ANALISIS DE LA INFORMACION DEL COVID-19 PARA LOS DEPARTAMENTOS DE CAQUETA Y NORTE DE SANTANDER
+
+```{r,echo=FALSE, message=FALSE,results='hide',warning=FALSE, echo=FALSE}
+library(dplyr)
+library(readxl)
+library(haven)
+library(utils)
+library(readr)
+library(ggplot2)
+library(knitr)
+library(scales)
+
+```
+
+```{r,echo=FALSE, message=FALSE,results='hide',warning=FALSE, echo=FALSE}
+CasospositivosdeCOVID.19enColombia <- read.csv("D:/Analisis en R y Python/CasospositivosdeCOVID-19enColombia.csv", sep=";")
+```
+
+Introduccion
+
+En Diciembre de 2019 se presentaron los primeros reportes de una enfermedad desconocida en WuhanChina, posteriormente fue identificado el virus como COVID-19. Debido a su rapida expansion global y alta
+infectividad, se declara la enfermedad como una emergencia sanitaria mundial, incluyendo Colombia. Para
+el caso de este pais, el primer caso fue reportado el 6 de marzo de 2020, este caso fue importado por una
+persona de sexo femenino con 19 años de edad, quien provenia de Italia, hasta la fecha se han presentado 1.19
+millones de casos, los cuales se encuentran concentrados en el Distrito capital (Bogota) y el departamento de
+Antioquia.
+En este trabajo se busca analizar la informacion existente de dos departamentos: Caqueta y Norte de
+Santander, lo cuales presentan 12.353 y 24.469 casos respectivamente. Este analisis se evaluara a traves de la
+base de datos proporcionada por el Instituto Nacional de Salud (INS) en Colombia, esta base de datos utiliza
+variables categoricas para dar a conocer la informacion. En este informe se tuvieron en cuenta las variables
+sexo, edad, tipo de contagio, tipo de recuperacion, fecha de inicio de sintomas, fecha de recuperacion e Id del
+caso; con las cuales se realizo un analisis grafico y de fechas. Posteriormente, se hizo un analisis general de la
+informacion encontrada para todo el pais.
+
+Para el analisis de la informacion se utiliza la base de datos de libre acceso proporcionada por el Instituto Nacional de Salud en Colombia. De esta base de datos se tomaron variables tales como Edad, Sexo, tipo de contagio, tipo de recuperacion, entre otras.
+
+
+
+##Caquetá y Norte de Santander
+
+En el departamento de Norte de Santander el primer caso fue reportado el 15 de marzo de 2020 en la
+capital (Cucuta), persona procedente del extranjero, con 48 años de edad y sexo femenino. Por su parte
+el departamento de Caquetá dio a conocer su primer caso el 19 de abril de 2020, presentado en su capital
+(Florencia), dicho caso fue de tipo relacionado, en persona masculina y con 34 años de edad.
+
+#Edad
+
+```{r, ,echo=FALSE, message=FALSE,results='hide',warning=FALSE}
+
+CaquetayNsantander= na.omit(CaquetayNsantander)
+
+CaquetayNsantander = CasospositivosdeCOVID.19enColombia %>%
+  filter(Nombre.departamento %in% c("CAQUETA", "NORTE SANTANDER"))%>%
+  select("Nombre.departamento", "Edad", "Sexo", "Tipo.de.recuperacion", "Tipo.de.contagio", "Estado", "Nombre.municipio") 
+
+
+
+# Edad
+a <-ggplot(CaquetayNsantander, aes(x=Edad))+ geom_histogram(aes(fill=Nombre.departamento),position = "dodge")+ theme_classic()
+
+a+scale_fill_manual(values = c("tomato3", "blue2"))+labs(title = "Distribucion por Edad y ciudad", x="Edad", y="Cantidad de casos por Edad")+facet_grid(~Nombre.departamento)
+
+                                              
+```
+
+De acuerdo a la grafica de Distribucion de la cantidad de casos por Edad y Departamento, se puede establecer
+que hay mayor numero de casos en Norte de Santander. En lo que respecta a la edad, se evidencia un mismo
+comportamiento en los dos departamentos, mostrando concentracion de los casos en las edades de 30 a 45, edades que por lo general no presentan alto riesgo de muerte.
+
+
+# Sexo
+
+```{r, ,echo=FALSE, message=FALSE,results='hide',warning=FALSE}
+# Sexo
+b <-ggplot(CaquetayNsantander, aes(x=Sexo))+ geom_bar(aes(fill=Nombre.departamento),position = "dodge")+ theme_bw()
+                                                b+scale_fill_manual(values = c("darkviolet", "green3"))+labs(title = "Distribucion por genero y ciudad", x="Sexo", y="Cantidad.de.casos")
+
+
+
+```
+
+De acuerdo a la distribucion de la variable Sexo,esta indica que se evidencia el mismo comportamiento
+en cuanto a numero de casos, en donde hay mayor presencia en el departamento de Norte de Santander.
+Tambien se evidencia que en los departamentos hay menor cantidad de mujeres infectadas que hombre.
+
+
+# Tipo de Recuperacion
+
+```{r,echo=FALSE, message=FALSE,results='hide',warning=FALSE}
+#Tipo de recuperacion
+c <-ggplot(CaquetayNsantander, aes(x=Tipo.de.recuperacion, na.rm = T))+ geom_bar(aes(fill=Nombre.departamento),position = "dodge")+ theme_bw()
+                                                c+scale_fill_manual(values = c("violetred", "turquoise3"))+labs(title = "Distribucion por tipo de recuperacion", x="Tipo de recuperacion", y="Casos por tipo de recuperacion")                                          
+```
+
+Se evidencia que hay mayor concentracion de los casos en tipo de recuperacion por _tiempo_ es decir, que estas
+personas mostraron mejoria y desaparicion de sintomas despues de 30 dias y no se encontraban hospitalizados
+y no tenian mas de 70. Por su parte la recuperacion por _PCR_, que es auquella que da resultado negativo
+en la segunda prueba, tiene una participacion minima en los dos departamentos.
+
+
+# Tipo de Contagio
+```{r,echo=FALSE, message=FALSE,results='hide',warning=FALSE}
+#Tipo de Contagio
+d <-ggplot(CaquetayNsantander, aes(x=Tipo.de.contagio, na.rm = T))+ geom_bar(aes(fill=Nombre.departamento),position = "dodge")+ theme_classic()
+                                                d+scale_fill_manual(values = c("salmon4", "orangered1"))+labs(title = "Distribucion por tipo de contagio", x="Tipo.de.contagio", y="Casos.por.tipo.de.contagio")
+                                                  
+```
+
+Esta grafica muestra que en Caqueta y Norte de Santander, los casos reportados no tienen identificacion de
+la forma en que ocurrio el contagio, ya que la mayoria de casos se encuentran _en estudio_ para determinar el
+_tipo de contagio_. Una minima parte de los casos se establecieron que se dieron por la _relacion_ con personas
+contagiadas.
+
+
+#Estado
+```{r, ,echo=FALSE, message=FALSE,results='hide',warning=FALSE}
+# Estado
+e <-ggplot(CaquetayNsantander, aes(x=Estado))+ geom_bar(aes(fill=Nombre.departamento),position = "dodge")+ theme_bw()
+                                                  e+scale_fill_manual(values = c("powderblue", "palevioletred"))+labs(title = "Distribucion por Estado", x="Estado", y="Cantidad.de.casos.por.Estado")
+```
+
+A partir de la variable Estado se evidencia que para los dos departamentos, los casos se presentaron bajo
+condiciones leves, se podria establecer que casi el 90% de los casos fueron leves, los demas estuvieron en
+condiciones moderadas y en menor proporcion grave.
+
+
+##Analisis por ciudades y municipios con presencia de COVID-19 en
+Caqueta y Norte de Santander
+
+En esta seccion se realizo un analisis para determinar las ciudades y municipios mas afectados por la
+Covid-19 en los departamentos en estudio. Se realizaron graficas comparativas entre municipios de un mismo
+departamento con las variables edad, sexo, tipo de contagio, tipo de recuperacion y estado.
+
+```{r, echo=FALSE, message=FALSE,results='hide',warning=FALSE}
+Caqueta= CasospositivosdeCOVID.19enColombia %>%
+  filter(Nombre.departamento %in% c("CAQUETA"))%>%
+  select("Nombre.departamento", "Edad", "Sexo", "Tipo.de.recuperacion","Tipo.de.contagio", "Estado", "Nombre.municipio")
+
+Caqueta= na.omit(Caqueta)
+
+Nsantander = CasospositivosdeCOVID.19enColombia %>%
+  filter(Nombre.departamento %in% c( "NORTE SANTANDER"))%>%
+  select("Nombre.departamento", "Edad", "Sexo", "Tipo.de.recuperacion", "Tipo.de.contagio", "Estado", "Nombre.municipio")
+
+Nsantander= na.omit(Nsantander)
+
+Caqueta
+Nsantander
+```
+
+# Sexo
+```{r, echo=FALSE, message=FALSE,results='hide',warning=FALSE}
+# Sexo
+f <-ggplot(Caqueta, aes(x=Sexo))+ geom_bar(aes(fill=Nombre.municipio),position = "dodge")+ theme_bw()
+                                                  f+labs(title = "Distribucion por genero y municipio Caqueta", x="Sexo", y="Cantidad.de.casos")
+
+g <-ggplot(Nsantander, aes(x=Sexo))+ geom_bar(aes(fill=Nombre.municipio),position = "dodge")+ theme_bw()
+                                                  g+labs(title = "Distribucion por genero y municipio Norte de Santander", x="Sexo", y="Cantidad.de.casos")
+```
+
+
+La distribucion de genero por municipio, se da de la siguiente manera:
+
+. _Caqueta_: se observa que los casos se centran en Florencia, San Vicente de Caguan, Cartagena del
+Chaira y Puerto Rico, con mayor presencia de casos en hombres.
+
+. _Norte de Santander_: Se observa que los casos se centran en Cucuta, Ocaña, Los patios y Pamplona, con
+presencia de casos muy similar en los dos generos, pero un poco mas centradad en el genero masculino
+
+# Edad
+
+```{r, echo=FALSE, message=FALSE,results='hide',warning=FALSE}
+# Edad
+h <-ggplot(Caqueta, aes(x=Edad))+ geom_histogram(aes(fill=Nombre.municipio),position = "dodge")+ theme_classic()
+                                                h+labs(title = "Distribucion por Edad y municipio Caqueta", x="Edad", y="Cantidad.de.casos.por.Edad")
+                                                 
+i <-ggplot(Nsantander, aes(x=Edad))+ geom_histogram(aes(fill=Nombre.municipio),position = "dodge")+ theme_classic()
+                                                  i+labs(title = "Distribucion por Edad Norte de Santander", x="Edad", x="Edad", y="Cantidad.de.casos")
+```
+
+La distribucion de edad por municipio, se da de la siguiente manera:
+. _Caqueta_: se observa que los casos se centran en Florencia entre la edad de 24 y 50, en San Vicente del Caguan
+entre la edad de 25 y 45; y Cartagena del Chaira entre la edad de 20 y 40.
+. _Norte de Santander_: Se observa que los casos se centran en Cucuta entre las edades de 20 y 62 
+, Ocaña entre las edades 25 y 45;y Los patios entre las edades 20 y 50. 
+En general, se observa que los casos se
+centran en edades que no poseen alto riesgo de muerte.
+
+# Tipo de Recuperacion  
+
+```{r,echo=FALSE, message=FALSE,results='hide',warning=FALSE}
+#Tipo de recuperacion
+j <-ggplot(Caqueta, aes(x=Tipo.de.recuperacion, na.rm = T))+ geom_bar(aes(fill=Nombre.municipio),position = "dodge")+ theme_bw()
+                                                  j+labs(title = "Tipo de recuperacion Caqueta", x="Tipo de recuperacion", y="Casos por tipo de recuperacion")
+                                                  k <-ggplot(Nsantander, aes(x=Tipo.de.recuperacion, na.rm = T))+ geom_bar(aes(fill=Nombre.municipio),position = "dodge")+ theme_bw()
+                                                  k+labs(title = "Tipo de recuperacion Norte de Santander", x="Tipo.de.recuperacion", y="Casos.por.tipo.de.recuperacion")
+                                                
+```
+
+La distribucion por Tipo de recuperacion en cada municipios, se da de la siguiente manera:
+
+Se observa que en los dos departamentos y los municipios de estos, la mayoria de casos tuvieron una
+recuperacion por _Tiempo_, es decir que e un lapso de 30 dias se recuperaron, presentaron mejoria o desaparecieron
+los sintomas, ademas este tipo de recuperacion indica que la mayoria de personas contagiadas no tenian mas
+de la edad de 70 y no tuvieron que ser hospitalizadas. 
+El tipo de recuperacion _PCR_, presenta una participacion
+minima, por lo que se deduce que en estos departamentos, no se hace una toma de pruebas en gran cantidad
+sino que el paso del tiempo define si ya se supero el virus o no.
+
+
+
+# Tipo de contagio
+```{r,echo=FALSE, message=FALSE,results='hide',warning=FALSE}
+#Tipo de Contagio
+d <-ggplot(Caqueta, aes(x=Tipo.de.contagio, na.rm = T))+ geom_bar(aes(fill=Nombre.municipio),position = "dodge")+ theme_classic()
+
+d+labs(title = "Tipo de contagio Caqueta", x="Tipo.de.contagio", y="Casos.por.tipo.de.contagio")
+                                                
+                                                
+d <-ggplot(Nsantander, aes(x=Tipo.de,contagio, na.rm = T))+ geom_bar(aes(fill=Nombre.municipio),position = "dodge")+ theme_classic()
+d+labs(title = "Tipo de contagio Norte de Santander", x="Tipo.de.contagio", y="Casos.por.tipo.de.contagio")
+```
+
+Se puede observar que en esos departamentos y municipios, no hay claridad en la procedencia de los contagios,
+ya que la mayoria de casos se encuentra en estudio. Una pequeña proporcion de estos casos fueron establecidos
+por relacion con una persona contagiada. Lo anterior sucede para los dos departamentos.
+
+
+
+# Estado
+
+```{r,echo=FALSE, message=FALSE,results='hide',warning=FALSE}
+# Estado
+e <-ggplot(Caqueta, aes(x=Estado))+ geom_bar(aes(fill=Nombre.municipio),position = "dodge")+ theme_bw()
+                                                  e+labs(title = "Distribucion por Estado", x="Estado", y="Cantidad.de.casos")
+                                                  
+                                                  # Estado
+e <-ggplot(Nsantander, aes(x=Estado))+ geom_bar(aes(fill=Nombre.municipio),position = "dodge")+theme_bw()
+                                                  e+labs(title = "Distribucion por Estado", x="Estado", y="Cantidad.de.casos")
+```
+
+En lo referente a la variable Estado, se puede identificar que:
+Los casos confirmados tienden a ser leves en los diferentes municipios de estos departamentos, algo que esta
+en contraste con la informacion suministrada por instituciones de salud publica, que indican por lo general
+los casos se dan con sintomatologia leve o con ausencia de ella y muy pocas veces se da de forma grave.
+
+ 
+
+# Conclusiones
+
+La actual crisis sanitaria que sigue afectando a la mayoria de paises del mundo, permite ver que por lo general los estados no estÃ¡n preparados para enfrentar problematicas relacionadas con la salud y la economia,  y situaciones como la del presente que colapsa hospitales y la salubridad de paises.
+
+En general se pudo encontrar que la mayoria de casos se centran en edades que no se consideran de alto riesgo, ademÃ¡s hay un comportamiento marcado en el sexo masculino. Una gran parte de estos reportes muestran que, estos casos son de estado leve y muy pocos llegan a ser graves o ocasionar la muerte. 
+
+Mientras no se encuentre una vacuna 100% confible y de libre acceso, los casos continuarÃ¡n en crecimiento y afectando a la poblaciÃ³n mundial y principalmente a poblaciones de escasos recursos que no cuenten con la posibilidad hospitalaria que requiere esta enfermedad cuando se manifiesta de manera grave. Es importante el autocuidado, cada persona es responsable del manejo y la responsabilidad frente al virus, para que este no siga causando los efectos que hasta ahora ha causado.
+_________________________________________________________________________________________________________________
+
