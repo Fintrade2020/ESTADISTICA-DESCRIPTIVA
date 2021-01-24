@@ -1,6 +1,7 @@
 ---
 title: "Analisis en R COVID-19"
 date: "4 de septiembre de 2020"
+author: "Jenny Carolina Llanos M"
 output:
   pdf_document: default
   html_document:
