@@ -1,5 +1,6 @@
 ---
 output:
+author: "Jenny Carolina Llanos M"
   pdf_document: default
   html_document: default
 ---
