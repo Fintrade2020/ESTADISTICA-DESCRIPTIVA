@@ -34,6 +34,13 @@ _Conceptos claves_
 Para obtener mayor información, consulté en la bibiloteca de la Universidad de la Salle - Recursos Electrónicos CRAI (Base de Datos Disponibles)
 
 
+## Carpetas
+
+| Carpeta| Contenido|
+| ----- | ---- |
+| Medidas | Medidas de localización, Medidas de tendencia central y Medidas de variabilidad |
+| Estadistica basica | Operaciones estadísticas básicas |
+
 ### Referencias 
 
 - Llinás Solano, H. (2017). Estadística descriptiva y distribuciones de probabilidad. Universidad del Norte. https://elibro-net.hemeroteca.lasalle.edu.co/es/lc/lasalle/titulos/70059
