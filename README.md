@@ -36,6 +36,8 @@ Para obtener mayor información, consulté en la bibiloteca de la Universidad de
 
 ## Carpetas
 
+Los temas y contenidos de este repositorio se encuentran divididos de la siguiente forma:
+
 | Carpeta| Contenido|
 | ----- | ---- |
 | Medidas | Medidas de localización, Medidas de tendencia central y Medidas de variabilidad |
